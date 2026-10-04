@@ -1,0 +1,11 @@
+# Install PyTorch with CUDA first, e.g.
+#   pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+numpy==1.26.4
+scipy==1.11.4
+trimesh==4.2.2
+open3d==0.17.0
+pillow
+networkx
+tqdm
+ninja
+git+https://github.com/NVlabs/nvdiffrast.git

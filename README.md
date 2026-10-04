@@ -31,14 +31,22 @@ We tested on Ubuntu 22.04 with PyTorch 2.4.1 (CUDA 12.1 build), the CUDA 12.4 to
 - `transforms_blender.json`: intrinsics and the 24 camera poses used for rendering (512×512; azimuths −82.5° to 82.5° in 15° steps × elevations 15° and 30°).
 - `gso_input_views.json`, `omniobj3d_input_views.json`: the input view of each object (GSO 1,030 objects, OmniObject3D 1,038 objects).
 
-Download the evaluation data (CC BY 4.0) from the [`data-v1` release](https://github.com/ahyunSeo/MatchPropMesh/releases/tag/data-v1):
+Download the evaluation data from the [`data-v1` release](https://github.com/ahyunSeo/MatchPropMesh/releases/tag/data-v1) with `scripts/download_data.sh`, which fetches the archives, verifies their checksums, and extracts them into `data_root/`:
 
 ```bash
-bash scripts/download_data.sh data_root                                    # everything
-bash scripts/download_data.sh data_root gso_gt gso_depth gso_instantmesh   # InstantMesh on GSO only
+bash scripts/download_data.sh data_root                                    # everything (38 GB download)
+bash scripts/download_data.sh data_root gso_gt gso_depth gso_instantmesh   # InstantMesh on GSO only (2 GB)
 ```
 
-Components are `{gso,omniobj3d}_{gt,depth,images,instantmesh,affostruction}`, and each is extracted into `data_root/`:
+| Component | GSO | OmniObject3D | Contents |
+|---|---|---|---|
+| `<dataset>_gt` | 0.45 GB | 15.8 GB | GT meshes |
+| `<dataset>_depth` | 0.44 GB | 0.43 GB | depth of the input view |
+| `<dataset>_images` | 0.17 GB | 0.17 GB | RGBA input views |
+| `<dataset>_instantmesh` | 1.1 GB | 1.3 GB | InstantMesh meshes |
+| `<dataset>_affostruction` | 8.8 GB | 9.4 GB | Affostruction meshes |
+
+Sizes are compressed downloads; all components take 99 GB once extracted. The script uses the GitHub CLI (`gh`) when installed and `curl` otherwise, and deletes each archive after extraction (`KEEP=1` keeps them). To use assets downloaded manually from the release page, run `ASSET_DIR=<folder> bash scripts/download_data.sh data_root <components>`. The extracted layout is:
 
 ```
 data_root/
@@ -130,6 +138,10 @@ third_party/chamfer3D  # CUDA Chamfer distance (ChamferDistancePytorch, MIT)
   year      = {2026}
 }
 ```
+
+## License
+
+The code is released under the [MIT License](LICENSE); `third_party/chamfer3D` comes from ChamferDistancePytorch (MIT). The GT meshes in the evaluation data are derived from [Google Scanned Objects](https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/) and [OmniObject3D](https://omniobject3d.github.io/), both released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); please cite them when using the data.
 
 ## Acknowledgements
 

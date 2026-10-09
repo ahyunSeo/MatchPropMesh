@@ -1,6 +1,6 @@
 # RGBD-to-3D Object Mesh Refinement via Depth Matching and Symmetry Propagation
 
-**ACCV 2026** · [Project page](https://ahyunSeo.github.io/MatchPropMesh)
+**ACCV 2026** · [Paper](https://arxiv.org/abs/2610.11187) · [Project page](https://ahyunSeo.github.io/MatchPropMesh)
 
 Ahyun Seo, Minsu Cho
 
